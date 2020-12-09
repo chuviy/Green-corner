@@ -1,0 +1,6 @@
+framework module Pods_Green_corner {
+  umbrella header "Pods-Green corner-umbrella.h"
+
+  export *
+  module * { export * }
+}
