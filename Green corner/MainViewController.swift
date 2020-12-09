@@ -9,11 +9,8 @@
 import UIKit
 
 class MainViewController: UITableViewController {
-
-    let plases = [
-         "Бор", "река Ока", "река Угра", "Заповедник", "Калужские засеки", "Национальный парк Угра"
-         ]
-         
+    
+    let places = Place.getPlaces()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,15 +21,17 @@ class MainViewController: UITableViewController {
       // MARK: - Table view data source
 
       override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-          return plases.count
+          return places.count
             }
 
       
       override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
 
-        cell.nameLabel?.text = plases[indexPath.row]
-        cell.imageOfPlace?.image = UIImage(named: plases[indexPath.row])
+        cell.nameLabel?.text = places[indexPath.row].name
+        cell.locationLabel.text = places[indexPath.row].location
+        cell.typeLabel.text = places[indexPath.row].type
+        cell.imageOfPlace?.image = UIImage(named: places[indexPath.row].image)
         cell.imageOfPlace?.layer.cornerRadius = cell.imageOfPlace.frame.height / 2  // 85/2 делаем круг из imageView. т.к. высота изображения =                                                                  // высоте строки, угол радиуса изображения = половине высоты                                                                  //  изображения (квадрата)
         cell.imageOfPlace?.clipsToBounds = true // обрезаем изображение по границам imageView.
         
@@ -41,11 +40,6 @@ class MainViewController: UITableViewController {
           return cell
       }
     
-    // MARK: - Table view delegete
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 85
-    }
    
     /*
     // MARK: - Navigation
@@ -56,5 +50,7 @@ class MainViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func cancelAction(_ segue: UIStoryboardSegue) {}
 
 }
