@@ -29,12 +29,12 @@ class MainViewController: UITableViewController {
 
       
       override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-          let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
 
-        cell.textLabel?.text = plases[indexPath.row]
-        cell.imageView?.image = UIImage(named: plases[indexPath.row])
-        cell.imageView?.layer.cornerRadius = cell.frame.height / 2  // 85/2 // делаем круг из imageView. т.к. высота изображения = высоте строки, угол радиуса изображения = половине высоты изображения (квадрата)
-        cell.imageView?.clipsToBounds = true // обрезаем изображение по границам imageView.
+        cell.nameLabel?.text = plases[indexPath.row]
+        cell.imageOfPlace?.image = UIImage(named: plases[indexPath.row])
+        cell.imageOfPlace?.layer.cornerRadius = cell.imageOfPlace.frame.height / 2  // 85/2 делаем круг из imageView. т.к. высота изображения =                                                                  // высоте строки, угол радиуса изображения = половине высоты                                                                  //  изображения (квадрата)
+        cell.imageOfPlace?.clipsToBounds = true // обрезаем изображение по границам imageView.
         
         
           
