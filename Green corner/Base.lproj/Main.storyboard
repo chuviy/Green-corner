@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--Чистые уголки природы-->
         <scene sceneID="Gm0-jh-9EQ">
             <objects>
                 <tableViewController id="yzP-Jf-SCj" customClass="MainViewController" customModule="Green_corner" customModuleProvider="target" sceneMemberID="viewController">
@@ -29,7 +29,7 @@
                             <outlet property="delegate" destination="yzP-Jf-SCj" id="70U-sg-FLi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="c4Z-bh-QVb"/>
+                    <navigationItem key="navigationItem" title="Чистые уголки природы" id="c4Z-bh-QVb"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5n7-I2-Ejb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -43,6 +43,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dHn-Ro-u8t">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="SnellRoundhand-Bold" family="Snell Roundhand" pointSize="24"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
