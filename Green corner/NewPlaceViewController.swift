@@ -10,28 +10,27 @@ import UIKit
 
 class NewPlaceViewController: UITableViewController {
     
-    var newPlace = Place()
     var imageIsChanged = false
 
     @IBOutlet var saveButton: UIBarButtonItem!
     @IBOutlet var placeImage: UIImageView!
-    @IBOutlet var placeNeme: UITextField!
+    @IBOutlet var placeName: UITextField!
     @IBOutlet var placeLocation: UITextField!
     @IBOutlet var placeType: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.main.async {
-            self.newPlace.savePlaces()
-        }
+//        DispatchQueue.main.async {     // загрузка в фоновом режиме временных данных в БД
+//            self.newPlace.savePlaces()
+//        }
         
         
         tableView.tableFooterView = UIView()
         
         saveButton.isEnabled = false // изначально отключаем кнопку
        
-        placeNeme.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
+        placeName.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
     }
     
     // MARK: Table view delegate
@@ -70,7 +69,8 @@ class NewPlaceViewController: UITableViewController {
             view.endEditing(true)
         }
     }
-    func saveNewPlace() {
+    func saveNewPlace() { // сохраняем данные о местах в БД
+        
         
         var image: UIImage?
         
@@ -79,12 +79,16 @@ class NewPlaceViewController: UITableViewController {
         } else {
             image = #imageLiteral(resourceName: "LaunchScreen")
         }
+
+        let imageData = image?.pngData() // конвертируем UIImage to Data
         
-//        newPlace = Place(name: placeNeme.text!,
-//                         location: placeLocation.text,
-//                         type: placeType.text,
-//                         image: image,
-//                         stringPlacesImage: nil)
+        
+        let newPlace = Place(name: placeName.text!,
+                             location: placeLocation.text,
+                             type: placeType.text,
+                             imageData: imageData)
+
+        StorageManager.saveObject(newPlace)
         
     }
     
@@ -104,7 +108,7 @@ class NewPlaceViewController: UITableViewController {
         }
         @objc private func textFieldChanged() {
             
-            if placeNeme.text?.isEmpty == false {
+            if placeName.text?.isEmpty == false {
                 saveButton.isEnabled = true
             } else {
                 saveButton.isEnabled = false

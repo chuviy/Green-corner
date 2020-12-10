@@ -247,7 +247,7 @@
                     <connections>
                         <outlet property="placeImage" destination="f0w-xe-4jU" id="9I2-gq-h4L"/>
                         <outlet property="placeLocation" destination="vhQ-0Q-pJ6" id="V2p-WF-Awt"/>
-                        <outlet property="placeNeme" destination="yJL-I0-yg4" id="BFg-rm-OGy"/>
+                        <outlet property="placeName" destination="yJL-I0-yg4" id="BFg-rm-OGy"/>
                         <outlet property="placeType" destination="Tpa-Sw-O02" id="7k8-Sa-SV0"/>
                         <outlet property="saveButton" destination="4An-A3-oyH" id="xyk-Yr-5eM"/>
                     </connections>

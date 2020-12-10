@@ -14,28 +14,15 @@ class Place: Object {
    @objc dynamic var location: String?
    @objc dynamic var type: String?
    @objc dynamic var imageData: Data?
-    
-    
-    let plaсesNames = [
-             "Бор", "река Ока", "река Угра", "Заповедник", "Калужские засеки", "Национальный парк Угра"
-             ]
-    
-    func savePlaces() {
-           
-        for place in plaсesNames {
-            
-            let image = UIImage(named: place)
-            guard let imageData = image?.pngData() else { return } // конвертируем изображение в Data
-            
-            let newPlace = Place()
-            
-            newPlace.name = place
-            newPlace.location = "г. Калуга"
-            newPlace.type = "Лесной массив"
-            newPlace.imageData = imageData
-            
-            StorageManager.saveObject(newPlace)
-        }
+   
+   /* вспомогательный инициализатор для всех св-тв класса */
+    convenience init(name: String, location: String?, type: String?, imageData: Data?) {
+        self.init() // в вспомогательном инициализаторе вызываем инициализатор суперкласса
+        self.name = name
+        self.location = location
+        self.type = type
+        self.imageData = imageData
+        
     }
     
 }
