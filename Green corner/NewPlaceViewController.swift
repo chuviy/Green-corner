@@ -10,6 +10,7 @@ import UIKit
 
 class NewPlaceViewController: UITableViewController {
     
+    var currentPlace: Place?
     var imageIsChanged = false
 
     @IBOutlet var saveButton: UIBarButtonItem!
@@ -24,13 +25,11 @@ class NewPlaceViewController: UITableViewController {
 //        DispatchQueue.main.async {     // загрузка в фоновом режиме временных данных в БД
 //            self.newPlace.savePlaces()
 //        }
-        
-        
+
         tableView.tableFooterView = UIView()
-        
         saveButton.isEnabled = false // изначально отключаем кнопку
-       
         placeName.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
+        setupEditScreen() // внутри метода проверка: если currentPlace не пустой то редактируем.
     }
     
     // MARK: Table view delegate
@@ -69,9 +68,8 @@ class NewPlaceViewController: UITableViewController {
             view.endEditing(true)
         }
     }
-    func saveNewPlace() { // сохраняем данные о местах в БД
-        
-        
+    func savePlace() { // сохраняем данные о местах в БД
+                
         var image: UIImage?
         
         if imageIsChanged {
@@ -87,9 +85,45 @@ class NewPlaceViewController: UITableViewController {
                              location: placeLocation.text,
                              type: placeType.text,
                              imageData: imageData)
-
-        StorageManager.saveObject(newPlace)
+        /* если режим редактирования то записываем данные из currentPlace, иначе записываем из Outlets*/
+        if currentPlace != nil {
+            try! realm.write {
+                currentPlace?.name = newPlace.name
+                currentPlace?.location = newPlace.location
+                currentPlace?.type = newPlace.type
+                currentPlace?.imageData = newPlace.imageData
+            }
+              } else {
+                StorageManager.saveObject(newPlace)
+            }
         
+    }
+    
+    private func setupEditScreen() {
+        
+        if currentPlace != nil {
+            setupNavigationBar() // убираем кнопку Cancel, меняем title, включаем кнопку save
+            imageIsChanged = true
+            /* Раскрываем опционал. Если в объекте есть картинка в Data, то преобразуем её в UIImage*/
+            guard let data = currentPlace?.imageData, let image = UIImage(data: data) else { return }
+            
+            /* подставляем в Outlets значения из объекта currentPlace для редактирования*/
+            placeImage.image = image
+            placeImage.contentMode = .scaleAspectFill // масштабируем по размеру
+            placeName.text = currentPlace?.name
+            placeLocation.text = currentPlace?.location
+            placeType.text = currentPlace?.type
+        }
+    }
+    
+    private func setupNavigationBar() {
+        if let topItem = navigationController?.navigationBar.topItem {
+            topItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        }
+        
+        navigationItem.leftBarButtonItem = nil
+        title = currentPlace?.name
+        saveButton.isEnabled = true
     }
     
     @IBAction func cancelAction(_ sender: Any) {
