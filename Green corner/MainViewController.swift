@@ -46,6 +46,28 @@ class MainViewController: UITableViewController {
 
           return cell
       }
+    // MARK: Table View Delegete
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+       
+        if editingStyle == .delete {
+            let place = places[indexPath.row]
+            StorageManager.deleteObject(place)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+//    /* Позволяет настраиваеть пользовательские действия swaip по ячейке справо-налево. [UIContextualAction] - массив с контекстными действиями */
+//    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//
+//        let place = places[indexPath.row] // создаем текущий объект из массива по индексу строки, который собираемся удалить
+//        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
+//            StorageManager.deleteObject(place) // удаляем объект из БД
+//            tableView.deleteRows(at: [indexPath], with: .automatic) // удаляем строку из таблицы
+//        }
+//
+//        return UISwipeActionsConfiguration(actions: [deleteAction])
+//    }
     
    
     /*
