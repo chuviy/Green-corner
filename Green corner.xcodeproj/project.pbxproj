@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,7 @@
 		8D421C39257FB9430015E724 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D421C37257FB9430015E724 /* Main.storyboard */; };
 		8D421C3B257FB9450015E724 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D421C3A257FB9450015E724 /* Assets.xcassets */; };
 		8D421C3E257FB9450015E724 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D421C3C257FB9450015E724 /* LaunchScreen.storyboard */; };
+		8D4D386E2581F49300E09D67 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4D386D2581F49300E09D67 /* StorageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		8D421C3A257FB9450015E724 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D421C3D257FB9450015E724 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D421C3F257FB9450015E724 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D4D386D2581F49300E09D67 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		BD624F52AB2F47FADD9174FE /* Pods-Green corner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Green corner.release.xcconfig"; path = "Target Support Files/Pods-Green corner/Pods-Green corner.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,6 +88,7 @@
 				8D0C27B02580E78900042225 /* NewPlaceViewController.swift */,
 				8D0C27AA257FE3A000042225 /* MainViewController.swift */,
 				8D0C27AE2580B6D600042225 /* PlaceModel.swift */,
+				8D4D386D2581F49300E09D67 /* StorageManager.swift */,
 				8D0C27AC2580AAB600042225 /* CustomTableViewCell.swift */,
 				8D421C3A257FB9450015E724 /* Assets.xcassets */,
 				8D421C3C257FB9450015E724 /* LaunchScreen.storyboard */,
@@ -100,7 +103,6 @@
 				855E4D035E353C16725E6A2C /* Pods-Green corner.debug.xcconfig */,
 				BD624F52AB2F47FADD9174FE /* Pods-Green corner.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -223,6 +225,7 @@
 				8D0C27AB257FE3A000042225 /* MainViewController.swift in Sources */,
 				8D0C27B12580E78900042225 /* NewPlaceViewController.swift in Sources */,
 				8D421C32257FB9430015E724 /* AppDelegate.swift in Sources */,
+				8D4D386E2581F49300E09D67 /* StorageManager.swift in Sources */,
 				8D0C27AF2580B6D600042225 /* PlaceModel.swift in Sources */,
 				8D0C27AD2580AAB600042225 /* CustomTableViewCell.swift in Sources */,
 				8D421C34257FB9430015E724 /* SceneDelegate.swift in Sources */,

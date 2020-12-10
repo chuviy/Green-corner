@@ -6,27 +6,36 @@
 //  Copyright © 2020 Aleksey Antokhin. All rights reserved.
 //
 
-import UIKit
+import RealmSwift
 
-struct Place {
-    var name: String
-    var location: String?
-    var type: String?
-    var image: UIImage?
-    var stringPlacesImage: String?
+class Place: Object {
+    
+   @objc dynamic var name = ""
+   @objc dynamic var location: String?
+   @objc dynamic var type: String?
+   @objc dynamic var imageData: Data?
     
     
-   static let plaсesNames = [
+    let plaсesNames = [
              "Бор", "река Ока", "река Угра", "Заповедник", "Калужские засеки", "Национальный парк Угра"
              ]
     
-   static func getPlaces() -> [Place] {
-       
-    var places = [Place]()
-    
+    func savePlaces() {
+           
         for place in plaсesNames {
-            places.append(Place(name: place, location: "г. Калуга", type: "Лесной массив", image: nil, stringPlacesImage: place))
+            
+            let image = UIImage(named: place)
+            guard let imageData = image?.pngData() else { return } // конвертируем изображение в Data
+            
+            let newPlace = Place()
+            
+            newPlace.name = place
+            newPlace.location = "г. Калуга"
+            newPlace.type = "Лесной массив"
+            newPlace.imageData = imageData
+            
+            StorageManager.saveObject(newPlace)
         }
-        return places
     }
+    
 }
