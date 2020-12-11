@@ -12,10 +12,14 @@ import RealmSwift
 
 class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet var segmentedControl: UISegmentedControl!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var revercedSortingButton: UIBarButtonItem!
     
     
     var places:Results<Place>! /* type:Results - автообновляемый тип контейнера, который возвращает запрашиваемые объекты. Результаты отображают текущее состояние хранилища в текущем потоке в том числе и во время записи транзакции. Объект типа Results позволяет работать с данными в реальном времени. Results - аналог массива. */
+    
+    var ascendingSorting = true // для сортировки по возрастанию
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,4 +99,30 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.reloadData() // обновляем таблицу с местами
     }
 
+    @IBAction func sortSelection(_ sender: UISegmentedControl) {
+        
+        sorting()
+    }
+    
+    @IBAction func reversedSorting(_ sender: Any) {
+        
+        ascendingSorting.toggle() // toggle() меняет значение на противоположное
+        
+        if ascendingSorting {
+            revercedSortingButton.image = #imageLiteral(resourceName: "AZ")
+        } else {
+            revercedSortingButton.image = #imageLiteral(resourceName: "ZA")
+        }
+        sorting()
+    }
+    
+    private func sorting() {
+        
+        if segmentedControl.selectedSegmentIndex == 0 {
+            places = places.sorted(byKeyPath: "date", ascending: ascendingSorting)
+        } else {
+            places = places.sorted(byKeyPath: "name", ascending: ascendingSorting)
+        }
+        tableView.reloadData()
+    }
 }

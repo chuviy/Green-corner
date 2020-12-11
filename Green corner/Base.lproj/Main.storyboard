@@ -188,9 +188,12 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bMA-OR-JBQ">
                                 <rect key="frame" x="0.0" y="88" width="414" height="32"/>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="Date"/>
+                                    <segment title="Name"/>
                                 </segments>
+                                <connections>
+                                    <action selector="sortSelection:" destination="E3Z-g3-HNF" eventType="valueChanged" id="38n-D8-S9x"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="85" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jQJ-R1-Z78">
                                 <rect key="frame" x="0.0" y="120" width="414" height="776"/>
@@ -268,7 +271,11 @@
                         <viewLayoutGuide key="safeArea" id="Bix-wa-Nij"/>
                     </view>
                     <navigationItem key="navigationItem" title="Чистые уголки природы" largeTitleDisplayMode="never" id="SpR-J3-TuV">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="AZ" id="sGw-El-MK6"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="AZ" id="sGw-El-MK6">
+                            <connections>
+                                <action selector="reversedSorting:" destination="E3Z-g3-HNF" id="le2-fF-ppI"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="wfI-lB-DIu">
                             <connections>
                                 <segue destination="pH8-CX-ZkR" kind="presentation" id="RQq-j1-gmb"/>
@@ -276,6 +283,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="revercedSortingButton" destination="sGw-El-MK6" id="cBf-7B-ANh"/>
+                        <outlet property="segmentedControl" destination="bMA-OR-JBQ" id="Uzm-n4-uhT"/>
                         <outlet property="tableView" destination="jQJ-R1-Z78" id="1Gi-gV-k9Y"/>
                     </connections>
                 </viewController>
