@@ -14,7 +14,7 @@ class Place: Object {
    @objc dynamic var location: String?
    @objc dynamic var type: String?
    @objc dynamic var imageData: Data?
-   @objc dynamic var date = Date()
+   @objc dynamic var date = Date() // инициализируестя текущей датой для внутренего использования. Для сортировки по дате добавления.
    
    /* вспомогательный инициализатор для всех св-тв класса */
     convenience init(name: String, location: String?, type: String?, imageData: Data?) {
