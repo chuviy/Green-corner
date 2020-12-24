@@ -274,9 +274,12 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Gr7-Yp-B3o">
                                 <rect key="frame" x="0.0" y="44" width="375" height="32"/>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="Date"/>
+                                    <segment title="Name"/>
                                 </segments>
+                                <connections>
+                                    <action selector="sortSelection:" destination="eed-Om-LoH" eventType="valueChanged" id="fgo-yx-AaX"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -292,7 +295,11 @@
                         <viewLayoutGuide key="safeArea" id="rfD-yv-bCC"/>
                     </view>
                     <navigationItem key="navigationItem" title="Чистые уголки природы" largeTitleDisplayMode="never" id="TEh-6C-E2o">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="AZ" id="k7Y-dd-eIM"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="AZ" id="k7Y-dd-eIM">
+                            <connections>
+                                <action selector="reversedSorting:" destination="eed-Om-LoH" id="18U-Jx-O1V"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="zkB-Yy-PqE">
                             <connections>
                                 <segue destination="pH8-CX-ZkR" kind="presentation" id="Ca8-dG-pHs"/>
@@ -301,6 +308,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="revercedSortingButton" destination="k7Y-dd-eIM" id="iJb-W8-Zke"/>
+                        <outlet property="segmentedControl" destination="Gr7-Yp-B3o" id="Fwe-tB-Eh9"/>
                         <outlet property="tableView" destination="EM8-R4-yZY" id="F2h-PK-iFB"/>
                     </connections>
                 </viewController>

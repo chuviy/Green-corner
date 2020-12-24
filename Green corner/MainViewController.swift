@@ -25,7 +25,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return searchController.isActive && !searchBarIsEmpty
     }
     
-   // @IBOutlet var segmentedControl: UISegmentedControl!
+    @IBOutlet var segmentedControl: UISegmentedControl!
     @IBOutlet var revercedSortingButton: UIBarButtonItem!
     @IBOutlet var tableView: UITableView!
     
@@ -83,18 +83,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-//    /* Позволяет настраиваеть пользовательские действия swaip по ячейке справо-налево. [UIContextualAction] - массив с контекстными действиями */
-//    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//
-//        let place = places[indexPath.row] // создаем текущий объект из массива по индексу строки, который собираемся удалить
-//        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
-//            StorageManager.deleteObject(place) // удаляем объект из БД
-//            tableView.deleteRows(at: [indexPath], with: .automatic) // удаляем строку из таблицы
-//        }
-//
-//        return UISwipeActionsConfiguration(actions: [deleteAction])
-//    }
-    
    
     
    //  MARK: - Navigation
@@ -126,10 +114,10 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.reloadData() // обновляем таблицу с местами
     }
 
-//    @IBAction func sortSelection(_ sender: UISegmentedControl) {
-//
-//        sorting()
-//    }
+    @IBAction func sortSelection(_ sender: UISegmentedControl) {
+
+        sorting()
+    }
     
     @IBAction func reversedSorting(_ sender: Any) {
         
@@ -140,16 +128,18 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else {
             revercedSortingButton.image = #imageLiteral(resourceName: "ZA")
         }
+        
         sorting()
     }
     
     private func sorting() {
 
-        if ascendingSorting {
+        if segmentedControl.selectedSegmentIndex == 0  {
             places = places.sorted(byKeyPath: "date", ascending: ascendingSorting)
         } else {
             places = places.sorted(byKeyPath: "name", ascending: ascendingSorting)
         }
+        
         tableView.reloadData()
     }
 }
