@@ -151,7 +151,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="z26-jP-ab5" customClass="RatingControl" customModule="Green_corner" customModuleProvider="target">
+                                                <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="252" placeholderIntrinsicHeight="44" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="z26-jP-ab5" customClass="RatingControl" customModule="Green_corner" customModuleProvider="target">
                                                     <rect key="frame" x="81" y="48" width="252" height="44"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="starCount">
@@ -229,7 +229,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EM8-R4-yZY">
-                                <rect key="frame" x="0.0" y="120" width="414" height="742"/>
+                                <rect key="frame" x="0.0" y="120" width="414" height="776"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="R8G-5Q-hpI" customClass="CustomTableViewCell" customModule="Green_corner" customModuleProvider="target">
@@ -306,7 +306,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="EM8-R4-yZY" firstAttribute="bottom" secondItem="rfD-yv-bCC" secondAttribute="bottom" id="CgR-4k-Za8"/>
+                            <constraint firstItem="EM8-R4-yZY" firstAttribute="bottom" secondItem="mqE-pz-6GH" secondAttribute="bottom" id="CgR-4k-Za8"/>
                             <constraint firstItem="EM8-R4-yZY" firstAttribute="top" secondItem="Gr7-Yp-B3o" secondAttribute="bottom" constant="1" id="DQh-UB-1z7"/>
                             <constraint firstItem="EM8-R4-yZY" firstAttribute="leading" secondItem="rfD-yv-bCC" secondAttribute="leading" id="Hwk-8p-6eE"/>
                             <constraint firstItem="Gr7-Yp-B3o" firstAttribute="trailing" secondItem="rfD-yv-bCC" secondAttribute="trailing" id="RKE-C2-fTv"/>
