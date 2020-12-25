@@ -17,6 +17,7 @@ class NewPlaceViewController: UITableViewController {
     @IBOutlet var placeImage: UIImageView!
     @IBOutlet var placeName: UITextField!
     @IBOutlet var placeLocation: UITextField!
+  //  @IBOutlet var placeType: UITextField!
     @IBOutlet var placeType: UITextField!
     
     override func viewDidLoad() {
