@@ -151,13 +151,18 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z26-jP-ab5" customClass="RatingControl" customModule="Green_corner" customModuleProvider="target">
-                                                    <rect key="frame" x="107" y="15" width="200" height="110"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="z26-jP-ab5" customClass="RatingControl" customModule="Green_corner" customModuleProvider="target">
+                                                    <rect key="frame" x="81" y="48" width="252" height="44"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="starCount">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="z26-jP-ab5" firstAttribute="centerX" secondItem="aeJ-Jy-SZY" secondAttribute="centerX" id="N4M-fb-TFv"/>
-                                                <constraint firstItem="z26-jP-ab5" firstAttribute="centerY" secondItem="aeJ-Jy-SZY" secondAttribute="centerY" id="d4r-WQ-s10"/>
+                                                <constraint firstItem="z26-jP-ab5" firstAttribute="centerX" secondItem="aeJ-Jy-SZY" secondAttribute="centerX" id="fxR-eo-gRj"/>
+                                                <constraint firstItem="z26-jP-ab5" firstAttribute="centerY" secondItem="aeJ-Jy-SZY" secondAttribute="centerY" id="m2l-La-PaG"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
