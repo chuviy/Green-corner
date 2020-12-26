@@ -15,14 +15,16 @@ class Place: Object {
    @objc dynamic var type: String?
    @objc dynamic var imageData: Data?
    @objc dynamic var date = Date() // инициализируестя текущей датой для внутренего использования. Для сортировки по дате добавления.
-   
+    @objc dynamic var rating = 0.0
+    
    /* вспомогательный инициализатор для всех св-тв класса */
-    convenience init(name: String, location: String?, type: String?, imageData: Data?) {
+    convenience init(name: String, location: String?, type: String?, imageData: Data?, rating: Double) {
         self.init() // в вспомогательном инициализаторе вызываем инициализатор суперкласса
         self.name = name
         self.location = location
         self.type = type
         self.imageData = imageData
+        self.rating = rating
         
     }
     
