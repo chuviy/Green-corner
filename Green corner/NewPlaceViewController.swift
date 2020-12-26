@@ -25,8 +25,12 @@ class NewPlaceViewController: UITableViewController {
 //        DispatchQueue.main.async {     // загрузка в фоновом режиме временных данных в БД
 //            self.newPlace.savePlaces()
 //        }
-
-        tableView.tableFooterView = UIView()
+        
+        // Убираем границу под рейтинговыми звездами
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0,
+                                                         y: 0,
+                                                         width: tableView.frame.size.width,
+                                                         height: 1))
         saveButton.isEnabled = false // изначально отключаем кнопку
         placeName.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
         setupEditScreen() // внутри метода проверка: если currentPlace не пустой то редактируем.
