@@ -48,27 +48,28 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if isFiltring {
                 return filteredPlaces.count
             }
-            return places.isEmpty ? 0 : places.count
+            return places.count
             }
       
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
 
-        var place = Place()
+      //  var place = Place()
         
-        if isFiltring {
-            place = filteredPlaces[indexPath.row]
-        } else {
-            place = places[indexPath.row]
-        }
+//        if isFiltring {
+//            place = filteredPlaces[indexPath.row]
+//        } else {
+//            place = places[indexPath.row]
+//        }
+        let place = isFiltring ? filteredPlaces[indexPath.row] : places[indexPath.row]
         
         cell.nameLabel?.text = place.name
         cell.locationLabel.text = place.location
         cell.typeLabel.text = place.type
         cell.imageOfPlace.image = UIImage(data: place.imageData!)
-
-        cell.imageOfPlace?.layer.cornerRadius = cell.imageOfPlace.frame.height / 2  // 85/2 делаем круг из imageView. т.к. высота изображения =                                                                  // высоте строки, угол радиуса изображения = половине высоты                                                                  //  изображения (квадрата)
-        cell.imageOfPlace?.clipsToBounds = true // обрезаем изображение по границам imageView.
+        cell.cosmosView.rating = place.rating
+//      cell.imageOfPlace?.layer.cornerRadius = cell.imageOfPlace.frame.height / 2  // 85/2 делаем круг из imageView. т.к. высота изображения =                                                                  // высоте строки, угол радиуса изображения = половине высоты                                                                  //  изображения (квадрата)
+//      cell.imageOfPlace?.clipsToBounds = true // обрезаем изображение по границам imageView.
 
           return cell
       }
@@ -98,12 +99,13 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
             
            // достаем из БД объект по текущему(выделенному) индексу.
-            let place: Place
-            if isFiltring {
-                place = filteredPlaces[indexPath.row]
-            } else {
-                place = places[indexPath.row]
-            }
+//            let place: Place
+//            if isFiltring {
+//                place = filteredPlaces[indexPath.row]
+//            } else {
+//                place = places[indexPath.row]
+//            }
+            let place = isFiltring ? filteredPlaces[indexPath.row] : places[indexPath.row]
             
             let newPlaceVC = segue.destination as! NewPlaceViewController
             newPlaceVC.currentPlace = place // передаем объект из выбранной ячейки в NewPlaceViewController
