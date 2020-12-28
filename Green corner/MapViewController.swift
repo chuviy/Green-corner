@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 class MapViewController: UIViewController {
 
@@ -15,6 +16,9 @@ class MapViewController: UIViewController {
     var place = Place()
     
     let annotationIdentifire = "annotationIdentifire"
+    
+    // отвечает за настройку и управление службами геолокации
+    let locationManager = CLLocationManager()
     
     @IBOutlet var mapView: MKMapView!
     
@@ -24,6 +28,8 @@ class MapViewController: UIViewController {
         mapView.delegate = self
         // показываем точки на карте
         setupPlaceMark()
+        
+        checkLocationServices()
 
     }
     
@@ -64,6 +70,45 @@ class MapViewController: UIViewController {
         
     }
     
+    // проверяем включены ли службы геолокации
+    private func checkLocationServices() {
+       
+        if CLLocationManager.locationServicesEnabled() {
+            setupLocationManager()
+            checkLocationAutorization()
+        } else {
+            // alertController
+        }
+        
+    }
+    
+    private func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+    
+    // Проверка статуса на разрешение использования геолокации
+    private func checkLocationAutorization() {
+        
+        switch CLLocationManager.authorizationStatus() {
+            case .authorizedWhenInUse:
+                mapView.showsUserLocation = true
+                break
+            case .denied:
+                // Show alert Controller
+                break
+            case .notDetermined:
+                locationManager.requestWhenInUseAuthorization()
+            case .restricted:
+                break
+            case .authorizedAlways:
+                break
+            
+            @unknown default:
+            print("New case is available")
+        }
+    }
+    
 }
 
 extension MapViewController: MKMapViewDelegate {
@@ -94,4 +139,12 @@ extension MapViewController: MKMapViewDelegate {
         return annotationView
     }
      
+}
+
+extension MapViewController: CLLocationManagerDelegate {
+    
+    // вызываеться при каждом изменении статуса авторизации приложения для использовния служб геолокации
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        checkLocationAutorization()
+    }
 }
