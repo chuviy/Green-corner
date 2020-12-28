@@ -11,7 +11,9 @@ import MapKit
 
 class MapViewController: UIViewController {
 
-    var place: Place!
+    // инициализируем значением по умолчанию (default пустой инициализатор)
+    var place = Place()
+    
     let annotationIdentifire = "annotationIdentifire"
     
     @IBOutlet var mapView: MKMapView!
