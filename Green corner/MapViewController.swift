@@ -20,6 +20,8 @@ class MapViewController: UIViewController {
     // отвечает за настройку и управление службами геолокации
     let locationManager = CLLocationManager()
     
+    let regionInMeters = 10_000.00
+    
     @IBOutlet var mapView: MKMapView!
     
     override func viewDidLoad() {
@@ -32,6 +34,17 @@ class MapViewController: UIViewController {
         checkLocationServices()
 
     }
+    
+    @IBAction func centerViewUserLocation() {
+        
+        if let location = locationManager.location?.coordinate {
+            let region = MKCoordinateRegion(center: location,
+                                            latitudinalMeters: regionInMeters,
+                                            longitudinalMeters: regionInMeters)
+            mapView.setRegion(region, animated: true)
+        }
+    }
+    
     
     @IBAction func closeVC() {
         // закрываем VC и выгружаем из памяти
@@ -95,7 +108,12 @@ class MapViewController: UIViewController {
                 mapView.showsUserLocation = true
                 break
             case .denied:
-                // Show alert Controller
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.showAlert(
+                        title: "Your Location is not Availeble",
+                        message: "To give permission Go to: Setting -> Green corner -> Location"
+                    )
+                }
                 break
             case .notDetermined:
                 locationManager.requestWhenInUseAuthorization()
@@ -107,6 +125,16 @@ class MapViewController: UIViewController {
             @unknown default:
             print("New case is available")
         }
+    }
+   
+    private func showAlert(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        
+        alert.addAction(okAction)
+        present(alert, animated: true)
+                
     }
     
 }
