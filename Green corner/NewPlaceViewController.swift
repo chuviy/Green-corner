@@ -77,13 +77,25 @@ class NewPlaceViewController: UITableViewController {
     // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier != "showMap" { return }
         
-        let mapVC = segue.destination as! MapViewController
-        mapVC.place.name = placeName.text!
-        mapVC.place.location = placeLocation.text
-        mapVC.place.type = placeType.text
-        mapVC.place.imageData = placeImage.image?.pngData()
+        /* Если получилось извлечь идентификатор segue и создать экземпляр класса MapVC */
+        guard
+            let identifier = segue.identifier,
+            let mapVC = segue.destination as? MapViewController
+            else { return }
+        
+        /* Если получилось извлечь идентификатор segue и создать экземпляр класса MapVC,
+        то педедаем текщий segue identifier в созданный mapVC	 */
+        mapVC.incomeSegueIdentifier = identifier
+       // print(mapVC.incomeSegueIdentifier)
+        if identifier == "showPlace" {
+            mapVC.place.name = placeName.text!
+            mapVC.place.location = placeLocation.text
+            mapVC.place.type = placeType.text
+            mapVC.place.imageData = placeImage.image?.pngData()
+           // print(mapVC.place.location)
+        }
+        
     }
     
     func savePlace() { // сохраняем данные о местах в БД

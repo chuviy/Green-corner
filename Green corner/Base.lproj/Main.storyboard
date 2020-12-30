@@ -37,7 +37,7 @@
                                                     </constraints>
                                                     <state key="normal" image="map"/>
                                                     <connections>
-                                                        <segue destination="pXk-Uk-eyb" kind="presentation" identifier="showMap" id="CkT-ux-5jy"/>
+                                                        <segue destination="pXk-Uk-eyb" kind="presentation" identifier="showPlace" id="CkT-ux-5jy"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -95,16 +95,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4MM-au-rxE">
-                                                    <rect key="frame" x="16" y="8" width="382" height="58"/>
+                                                    <rect key="frame" x="16" y="8" width="348" height="58"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ktq-fV-7Tr">
-                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="26.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="348" height="26.5"/>
                                                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" placeholder="Название местоположения" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vhQ-0Q-pJ6">
-                                                            <rect key="frame" x="0.0" y="34.5" width="382" height="23.5"/>
+                                                            <rect key="frame" x="0.0" y="34.5" width="348" height="23.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                             <connections>
@@ -113,11 +113,24 @@
                                                         </textField>
                                                     </subviews>
                                                 </stackView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bmY-Bn-GGO">
+                                                    <rect key="frame" x="372" y="43" width="22" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="22" id="AZR-2H-fOT"/>
+                                                        <constraint firstAttribute="height" constant="22" id="JFM-GH-XeI"/>
+                                                    </constraints>
+                                                    <state key="normal" image="Placeholder"/>
+                                                    <connections>
+                                                        <segue destination="pXk-Uk-eyb" kind="presentation" identifier="getAdress" id="oMU-oi-aP3"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="4MM-au-rxE" secondAttribute="trailing" constant="16" id="Aiw-Hy-xDw"/>
                                                 <constraint firstItem="4MM-au-rxE" firstAttribute="leading" secondItem="39z-ox-JXo" secondAttribute="leading" constant="16" id="Ttp-l7-knz"/>
                                                 <constraint firstAttribute="bottom" secondItem="4MM-au-rxE" secondAttribute="bottom" constant="4" id="UBg-2G-hhG"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="bmY-Bn-GGO" secondAttribute="trailing" id="XEO-LW-e2h"/>
+                                                <constraint firstItem="bmY-Bn-GGO" firstAttribute="centerY" secondItem="vhQ-0Q-pJ6" secondAttribute="centerY" id="ahj-Bq-XzZ"/>
+                                                <constraint firstItem="bmY-Bn-GGO" firstAttribute="leading" secondItem="4MM-au-rxE" secondAttribute="trailing" constant="8" id="muY-l7-sML"/>
                                                 <constraint firstItem="4MM-au-rxE" firstAttribute="top" secondItem="39z-ox-JXo" secondAttribute="top" constant="8" id="qUr-sw-hsx"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -444,12 +457,14 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="CkT-ux-5jy"/>
         <segue reference="RGc-qo-lB1"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="AZ" width="25" height="24"/>
         <image name="Location" width="128" height="128"/>
         <image name="Photo" width="195" height="196"/>
+        <image name="Placeholder" width="22" height="22"/>
         <image name="camcel" width="128" height="128"/>
         <image name="emptyStar" width="255" height="256"/>
         <image name="filledStar" width="237.5" height="238"/>

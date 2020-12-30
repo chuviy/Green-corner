@@ -14,13 +14,12 @@ class MapViewController: UIViewController {
 
     // инициализируем значением по умолчанию (default пустой инициализатор)
     var place = Place()
-    
     let annotationIdentifire = "annotationIdentifire"
-    
     // отвечает за настройку и управление службами геолокации
     let locationManager = CLLocationManager()
-    
     let regionInMeters = 10_000.00
+    var incomeSegueIdentifier = ""
+    
     
     @IBOutlet var mapView: MKMapView!
     
@@ -28,27 +27,28 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         // назначаем делегатом сам класс
         mapView.delegate = self
-        // показываем точки на карте
-        setupPlaceMark()
-        
+        // показываем точки на карте с проверкой по segue
+        setupMapView()
         checkLocationServices()
 
     }
     
     @IBAction func centerViewUserLocation() {
         
-        if let location = locationManager.location?.coordinate {
-            let region = MKCoordinateRegion(center: location,
-                                            latitudinalMeters: regionInMeters,
-                                            longitudinalMeters: regionInMeters)
-            mapView.setRegion(region, animated: true)
-        }
+        showUserLocation()
     }
     
     
     @IBAction func closeVC() {
         // закрываем VC и выгружаем из памяти
         dismiss(animated: true)
+    }
+    
+    private func setupMapView() {
+        
+        if incomeSegueIdentifier == "showPlace" {
+            setupPlaceMark()
+        }
     }
     
     private func setupPlaceMark() {
@@ -106,6 +106,7 @@ class MapViewController: UIViewController {
         switch CLLocationManager.authorizationStatus() {
             case .authorizedWhenInUse:
                 mapView.showsUserLocation = true
+                if incomeSegueIdentifier == "getAdress" { showUserLocation() }
                 break
             case .denied:
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -127,6 +128,17 @@ class MapViewController: UIViewController {
         }
     }
    
+    
+    private func showUserLocation() {
+        
+        if let location = locationManager.location?.coordinate {
+                   let region = MKCoordinateRegion(center: location,
+                                                   latitudinalMeters: regionInMeters,
+                                                   longitudinalMeters: regionInMeters)
+                   mapView.setRegion(region, animated: true)
+               }
+    }
+    
     private func showAlert(title: String, message: String) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
