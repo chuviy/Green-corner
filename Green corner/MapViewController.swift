@@ -28,6 +28,9 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        adressLabel.text = ""
+        
         // назначаем делегатом сам класс
         mapView.delegate = self
         // показываем точки на карте с проверкой по segue
@@ -149,6 +152,15 @@ class MapViewController: UIViewController {
                }
     }
     
+    // возвращает текущие координаты точки находящейся по центру экрана
+    private func getCenterLocation(for mapView: MKMapView) -> CLLocation {
+        
+        let latitude = mapView.centerCoordinate.latitude
+        let longitude = mapView.centerCoordinate.longitude
+        
+        return CLLocation(latitude: latitude, longitude: longitude)
+    }
+    
     private func showAlert(title: String, message: String) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -187,6 +199,46 @@ extension MapViewController: MKMapViewDelegate {
         
         
         return annotationView
+    }
+    // вызывается каждый раз при смене отображаемого на экране региона
+    // с момощью этого метода будем отображать текущий адрес в центре экрана
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        
+        // текущие координаты по центру отображаемой области
+        let center = getCenterLocation(for: mapView)
+        // объект для преобразования географических координат и названий
+        let geoCoder = CLGeocoder()
+        
+        // Преобразуем координаты в адрес. completionHandler возвращает массив меток, которые соответствуют переданным координатам
+        geoCoder.reverseGeocodeLocation(center) { (placemarks, error) in
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            // Если ошибок нет, извлекаем массив меток. В данном случае массив содержит одну метку.
+            guard let placemarks = placemarks else { return }
+            
+            let placemark = placemarks.first
+            let streetName = placemark?.thoroughfare // улица
+            let buildNumber = placemark?.subThoroughfare // номер дома
+            
+            /* Обновлять интерфейс мы должны в основном потоке асинхронно */
+            DispatchQueue.main.async {
+                
+                if streetName != nil && buildNumber != nil {
+                     self.adressLabel.text = "\(streetName!), \(buildNumber!)"
+                } else if streetName != nil {
+                    self.adressLabel.text = "\(streetName!)"
+                } else {
+                    self.adressLabel.text = ""
+                }
+                 
+            }
+            
+            
+        }
+        
     }
      
 }
