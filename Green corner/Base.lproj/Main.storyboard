@@ -121,7 +121,7 @@
                                                     </constraints>
                                                     <state key="normal" image="Placeholder"/>
                                                     <connections>
-                                                        <segue destination="pXk-Uk-eyb" kind="presentation" identifier="getAdress" id="oMU-oi-aP3"/>
+                                                        <segue destination="pXk-Uk-eyb" kind="presentation" identifier="getAddress" id="oMU-oi-aP3"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -255,7 +255,7 @@
                                     <constraint firstAttribute="width" constant="40" id="z6E-qN-9mI"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Adress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qjJ-Ye-aAE">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qjJ-Ye-aAE">
                                 <rect key="frame" x="16" y="137" width="382" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
@@ -268,7 +268,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="doneButtonPressed:" destination="pXk-Uk-eyb" eventType="touchUpInside" id="VjO-M8-8Sa"/>
+                                    <action selector="doneButtonPressed" destination="pXk-Uk-eyb" eventType="touchUpInside" id="f3L-qZ-IJI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLL-3o-vFQ">
@@ -304,7 +304,7 @@
                         <viewLayoutGuide key="safeArea" id="BNb-sO-dyZ"/>
                     </view>
                     <connections>
-                        <outlet property="adressLabel" destination="qjJ-Ye-aAE" id="0ju-sy-WAf"/>
+                        <outlet property="addressLabel" destination="qjJ-Ye-aAE" id="0ju-sy-WAf"/>
                         <outlet property="doneButton" destination="OtQ-ba-qim" id="ee3-Ox-eLE"/>
                         <outlet property="mapPinImage" destination="mOv-IN-h94" id="8s9-2U-GQ8"/>
                         <outlet property="mapView" destination="jOx-Sa-1gV" id="adg-WY-AHq"/>

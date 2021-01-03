@@ -10,10 +10,21 @@ import UIKit
 import MapKit
 import CoreLocation
 
+/*
+ Объявляем протокол вне класса, так как он должне быть доступен отовсюду.
+ Для передачи данных из MapViewController в NewPlaceViewController.
+ */
+protocol MapViewControllerDelegete {
+    func getAddres(_ addres: String?)
+}
+
 class MapViewController: UIViewController {
 
+    var mapViewControllerDelegete: MapViewControllerDelegete?
+    
     // инициализируем значением по умолчанию (default пустой инициализатор)
     var place = Place()
+    
     let annotationIdentifire = "annotationIdentifire"
     // отвечает за настройку и управление службами геолокации
     let locationManager = CLLocationManager()
@@ -23,18 +34,20 @@ class MapViewController: UIViewController {
     
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var mapPinImage: UIImageView!
-    @IBOutlet var adressLabel: UILabel!
+    @IBOutlet var addressLabel: UILabel!
     @IBOutlet var doneButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        adressLabel.text = ""
+        addressLabel.text = ""
         
         // назначаем делегатом сам класс
         mapView.delegate = self
+        
         // показываем точки на карте с проверкой по segue
         setupMapView()
+        
         checkLocationServices()
 
     }
@@ -51,6 +64,9 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func doneButtonPressed() {
+        mapViewControllerDelegete?.getAddres(addressLabel.text!)
+       
+        dismiss(animated: true)
     }
     
     private func setupMapView() {
@@ -58,7 +74,7 @@ class MapViewController: UIViewController {
         if incomeSegueIdentifier == "showPlace" {
             setupPlaceMark()
             mapPinImage.isHidden = true
-            adressLabel.isHidden = true
+            addressLabel.isHidden = true
             doneButton.isHidden = true
             
         }
@@ -119,7 +135,7 @@ class MapViewController: UIViewController {
         switch CLLocationManager.authorizationStatus() {
             case .authorizedWhenInUse:
                 mapView.showsUserLocation = true
-                if incomeSegueIdentifier == "getAdress" { showUserLocation() }
+                if incomeSegueIdentifier == "getAddress" { showUserLocation() }
                 break
             case .denied:
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -227,11 +243,11 @@ extension MapViewController: MKMapViewDelegate {
             DispatchQueue.main.async {
                 
                 if streetName != nil && buildNumber != nil {
-                     self.adressLabel.text = "\(streetName!), \(buildNumber!)"
+                     self.addressLabel.text = "\(streetName!), \(buildNumber!)"
                 } else if streetName != nil {
-                    self.adressLabel.text = "\(streetName!)"
+                    self.addressLabel.text = "\(streetName!)"
                 } else {
-                    self.adressLabel.text = ""
+                    self.addressLabel.text = ""
                 }
                  
             }

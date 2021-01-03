@@ -87,7 +87,11 @@ class NewPlaceViewController: UITableViewController {
         /* Если получилось извлечь идентификатор segue и создать экземпляр класса MapVC,
         то педедаем текщий segue identifier в созданный mapVC	 */
         mapVC.incomeSegueIdentifier = identifier
-       // print(mapVC.incomeSegueIdentifier)
+      
+        /* Назначаем за выполение методов протокола MapViewControllerDelegete сам класс NewPlaceViewController
+        т.е. Объявляем текущий класс делегатом. Необходимо подписать класс под протокол MapViewControllerDelegete */
+        mapVC.mapViewControllerDelegete = self
+        
         if identifier == "showPlace" {
             mapVC.place.name = placeName.text!
             mapVC.place.location = placeLocation.text
@@ -210,4 +214,13 @@ extension NewPlaceViewController: UIImagePickerControllerDelegate, UINavigationC
     
 }
     
+/* Объявляя текущий класс делегатом в "func prepare(for segue:", необходимо подписать класс под протокол MapViewControllerDelegete */
+extension NewPlaceViewController: MapViewControllerDelegete {
+   
+    // Передаем значене address в поле location
+    func getAddres(_ addres: String?) {
+        placeLocation.text = addres
+    }
+    
+}
 
