@@ -31,7 +31,7 @@
 		8D0C27AC2580AAB600042225 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		8D0C27AE2580B6D600042225 /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
 		8D0C27B02580E78900042225 /* NewPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlaceViewController.swift; sourceTree = "<group>"; };
-		8D421C2E257FB9430015E724 /* Green corner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Green corner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D421C2E257FB9430015E724 /* Зеленая точка.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Зеленая точка.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D421C31257FB9430015E724 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D421C33257FB9430015E724 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8D421C38257FB9430015E724 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 		8D421C2F257FB9430015E724 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D421C2E257FB9430015E724 /* Green corner.app */,
+				8D421C2E257FB9430015E724 /* Зеленая точка.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,7 +131,7 @@
 			);
 			name = "Green corner";
 			productName = "Green corner";
-			productReference = 8D421C2E257FB9430015E724 /* Green corner.app */;
+			productReference = 8D421C2E257FB9430015E724 /* Зеленая точка.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -390,7 +390,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Aleksey-Antokhin.Green-corner";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Зеленая точка";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -410,7 +410,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Aleksey-Antokhin.Green-corner";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Зеленая точка";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

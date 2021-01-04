@@ -15,16 +15,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="qwG-DS-5hI">
-                                <rect key="frame" x="20" y="44" width="374" height="827"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="qwG-DS-5hI">
+                                <rect key="frame" x="50.5" y="291.5" width="313" height="313"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Зелёная точка" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qlz-ab-Uos">
+                                <rect key="frame" x="20" y="624.5" width="374" height="45"/>
+                                <fontDescription key="fontDescription" name="SnellRoundhand-Bold" family="Snell Roundhand" pointSize="35"/>
+                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="qwG-DS-5hI" secondAttribute="bottom" constant="25" id="9jk-xD-V3R"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qwG-DS-5hI" secondAttribute="trailing" constant="20" id="hdS-My-bHU"/>
-                            <constraint firstItem="qwG-DS-5hI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ryO-qI-gl2"/>
-                            <constraint firstItem="qwG-DS-5hI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="xMx-5A-HJU"/>
+                            <constraint firstItem="Qlz-ab-Uos" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="MQL-3i-4io"/>
+                            <constraint firstItem="qwG-DS-5hI" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="T3c-yX-oDh"/>
+                            <constraint firstItem="qwG-DS-5hI" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Y1f-Aq-bjO"/>
+                            <constraint firstItem="Qlz-ab-Uos" firstAttribute="top" secondItem="qwG-DS-5hI" secondAttribute="bottom" constant="20" id="syY-LD-pQp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Qlz-ab-Uos" secondAttribute="trailing" constant="20" id="u9p-O4-CTs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
