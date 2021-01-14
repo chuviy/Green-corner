@@ -282,13 +282,26 @@
                                     <action selector="centerViewUserLocation" destination="pXk-Uk-eyb" eventType="touchUpInside" id="2eG-XG-Zdh"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FCK-hM-nif">
+                                <rect key="frame" x="182" y="718" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="dJz-bx-e6G"/>
+                                    <constraint firstAttribute="width" constant="50" id="emp-Zb-kAn"/>
+                                </constraints>
+                                <state key="normal" title="goButton" image="GetDirection"/>
+                                <connections>
+                                    <action selector="goButtonPressed" destination="pXk-Uk-eyb" eventType="touchUpInside" id="E4Q-As-fjB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="BNb-sO-dyZ" firstAttribute="bottom" secondItem="xLL-3o-vFQ" secondAttribute="bottom" constant="136" id="00j-EQ-tJ1"/>
+                            <constraint firstItem="BNb-sO-dyZ" firstAttribute="bottom" secondItem="FCK-hM-nif" secondAttribute="bottom" constant="40" id="1ZT-qw-7RL"/>
                             <constraint firstItem="qjJ-Ye-aAE" firstAttribute="leading" secondItem="BNb-sO-dyZ" secondAttribute="leading" constant="16" id="4I3-8L-jTh"/>
                             <constraint firstItem="mOv-IN-h94" firstAttribute="centerX" secondItem="zzQ-3o-jEJ" secondAttribute="centerX" id="4wU-ZJ-FqX"/>
                             <constraint firstAttribute="bottom" secondItem="jOx-Sa-1gV" secondAttribute="bottom" id="60E-Ah-1yp"/>
+                            <constraint firstItem="FCK-hM-nif" firstAttribute="centerX" secondItem="zzQ-3o-jEJ" secondAttribute="centerX" id="EK4-df-anz"/>
                             <constraint firstItem="jOx-Sa-1gV" firstAttribute="top" secondItem="qjJ-Ye-aAE" secondAttribute="bottom" constant="-173" id="EcT-q7-cju"/>
                             <constraint firstItem="BNb-sO-dyZ" firstAttribute="trailing" secondItem="4nL-9e-9r6" secondAttribute="trailing" constant="40" id="KCL-J8-pPZ"/>
                             <constraint firstItem="OtQ-ba-qim" firstAttribute="centerX" secondItem="zzQ-3o-jEJ" secondAttribute="centerX" id="KOi-Yk-cDv"/>
@@ -306,6 +319,7 @@
                     <connections>
                         <outlet property="addressLabel" destination="qjJ-Ye-aAE" id="0ju-sy-WAf"/>
                         <outlet property="doneButton" destination="OtQ-ba-qim" id="ee3-Ox-eLE"/>
+                        <outlet property="goButton" destination="FCK-hM-nif" id="nSK-4N-Xko"/>
                         <outlet property="mapPinImage" destination="mOv-IN-h94" id="8s9-2U-GQ8"/>
                         <outlet property="mapView" destination="jOx-Sa-1gV" id="adg-WY-AHq"/>
                     </connections>
@@ -495,6 +509,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="AZ" width="25" height="24"/>
+        <image name="GetDirection" width="50" height="50"/>
         <image name="Location" width="128" height="128"/>
         <image name="Photo" width="195" height="196"/>
         <image name="Pin" width="42" height="42"/>

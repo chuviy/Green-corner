@@ -14,13 +14,13 @@ import CoreLocation
  Объявляем протокол вне класса, так как он должне быть доступен отовсюду.
  Для передачи данных из MapViewController в NewPlaceViewController.
  */
-protocol MapViewControllerDelegete {
-    func getAddres(_ addres: String?)
+protocol MapViewControllerDelegate {
+    func getAddress(_ address: String?)
 }
 
 class MapViewController: UIViewController {
 
-    var mapViewControllerDelegete: MapViewControllerDelegete?
+    var mapViewControllerDelegate: MapViewControllerDelegate?
     
     // инициализируем значением по умолчанию (default пустой инициализатор)
     var place = Place()
@@ -30,12 +30,14 @@ class MapViewController: UIViewController {
     let locationManager = CLLocationManager()
     let regionInMeters = 10_000.00
     var incomeSegueIdentifier = ""
+    var placeCoordinate: CLLocationCoordinate2D? // координаты местоназначения точки
     
     
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var mapPinImage: UIImageView!
     @IBOutlet var addressLabel: UILabel!
     @IBOutlet var doneButton: UIButton!
+    @IBOutlet var goButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,18 +66,26 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func doneButtonPressed() {
-        mapViewControllerDelegete?.getAddres(addressLabel.text!)
+        mapViewControllerDelegate?.getAddress(addressLabel.text!)
        
         dismiss(animated: true)
     }
     
+    @IBAction func goButtonPressed() {
+        getDirections()
+    }
+    
+    
     private func setupMapView() {
+        
+        goButton.isHidden = true
         
         if incomeSegueIdentifier == "showPlace" {
             setupPlaceMark()
             mapPinImage.isHidden = true
             addressLabel.isHidden = true
             doneButton.isHidden = true
+            goButton.isHidden = false
             
         }
     }
@@ -102,10 +112,16 @@ class MapViewController: UIViewController {
             annotation.subtitle = self.place.type
             
             guard let placeMarkLocation = placemark?.location else { return }
+           
             // привязываем аннотацию к точке на карте
             annotation.coordinate = placeMarkLocation.coordinate
+            
+            // передаем координаты зеленой точки в переменную для построения маршрута
+            self.placeCoordinate = placeMarkLocation.coordinate
+            
             // показываем массив анотаций на карте
             self.mapView.showAnnotations([annotation], animated: true)
+           
             // выделяем анотацию
             self.mapView.selectAnnotation(annotation, animated: true)
         }
@@ -167,6 +183,67 @@ class MapViewController: UIViewController {
                    mapView.setRegion(region, animated: true)
                }
     }
+   
+    private func getDirections() {
+      
+        // координаты местоположения пользователя - широта и долгота
+        guard let location = locationManager.location?.coordinate else {
+            showAlert(title: "Error", message: "Current location is not found")
+            return
+        }
+        
+        guard let request = createDirectionsRequest(from: location) else {
+            showAlert(title: "Error", message: "Destanation is not found")
+            return
+        }
+        
+        //  если createDirectionsRequest отработал успешно, то создаем маршрут на основе сведений которые передаются в запросе
+        let diretcions = MKDirections(request: request)
+        
+        // расчет маршрута
+        diretcions.calculate { (response, error) in
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            guard let response = response else {
+                self.showAlert(title: "Error", message: "Direction is not available")
+                return
+            }
+            // если ошибки нет, то перебираем список маршрутов
+            for route in response.routes {
+                print(route.name)
+                self.mapView.addOverlay(route.polyline)
+                self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+
+                let distance = String(format: "%.1f ", route.distance / 1000)
+                let timeInterval = route.expectedTravelTime
+
+                print("Растояние до места \(distance) км.")
+                print("Время в пути составит \(timeInterval) сек.")
+            }
+        }
+    }
+    
+    private func createDirectionsRequest(from coordinate: CLLocationCoordinate2D) -> MKDirections.Request? {
+        
+        // раскрываем координаты местоназначения
+        guard let destinationCoordinate = placeCoordinate else {
+            print("return nil")
+            return nil }
+         
+            let startingLocation = MKPlacemark(coordinate: coordinate)
+            let destination = MKPlacemark(coordinate: destinationCoordinate)
+        
+            let request = MKDirections.Request()
+            request.source = MKMapItem(placemark: startingLocation)
+            request.destination = MKMapItem(placemark: destination)
+            request.transportType = .automobile
+            request.requestsAlternateRoutes = true
+        
+        return request
+    }
     
     // возвращает текущие координаты точки находящейся по центру экрана
     private func getCenterLocation(for mapView: MKMapView) -> CLLocation {
@@ -199,7 +276,6 @@ extension MapViewController: MKMapViewDelegate {
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifire) as? MKPinAnnotationView
         
         if annotationView == nil {
-            
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifire)
             // Отображаем аннотацию в виде банера
             annotationView?.canShowCallout = true
@@ -255,6 +331,14 @@ extension MapViewController: MKMapViewDelegate {
             
         }
         
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        
+        let renderer = MKPolylineRenderer(overlay: overlay as! MKPolyline)
+        renderer.strokeColor = .blue
+        
+        return renderer
     }
      
 }
