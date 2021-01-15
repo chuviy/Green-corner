@@ -30,8 +30,12 @@ class MapViewController: UIViewController {
     let locationManager = CLLocationManager()
     let regionInMeters = 1000.00
     var incomeSegueIdentifier = ""
-    var placeCoordinate: CLLocationCoordinate2D? // координаты местоназначения точки
-    // предыдущее местоположение пользователя
+    // координаты местоназначения точки
+    var placeCoordinate: CLLocationCoordinate2D?
+    
+    var directionsArray: [MKDirections] = []
+    
+    // предыдущее местоположение пользователя, инициализируется при построении маршрута
     var previusLocation: CLLocation? {
         didSet {
             startTrackingUserLocation()
@@ -94,6 +98,19 @@ class MapViewController: UIViewController {
             goButton.isHidden = false
             
         }
+    }
+    /* Перед построением нового маршрута удаляем текущий. */
+    private func resetMapView(withNew directions: MKDirections) {
+        
+        // удаляем с карты маршруты (наложения)
+        mapView.removeOverlays(mapView.overlays)
+        // добавляем в массив текущие маршруты
+        directionsArray.append(directions)
+        // отменяем все действующие маршруты из массива
+        let _ = directionsArray.map { $0.cancel() }
+        // удаляем все элементы из массива
+        directionsArray.removeAll()
+        
     }
     
     private func setupPlaceMark() {
@@ -225,6 +242,9 @@ class MapViewController: UIViewController {
         //  если createDirectionsRequest отработал успешно, то создаем маршрут на основе сведений которые передаются в запросе
         let diretcions = MKDirections(request: request)
         
+        // избавляемся от текущих маршрутов при построении новых
+        resetMapView(withNew: diretcions)
+        
         // расчет маршрута
         diretcions.calculate { (response, error) in
             
@@ -317,17 +337,25 @@ extension MapViewController: MKMapViewDelegate {
         
         return annotationView
     }
-    // вызывается каждый раз при смене отображаемого на экране региона
+    // вызывается каждый раз при смене отображаемого на экране региона (и др изменений)
     // с момощью этого метода будем отображать текущий адрес в центре экрана
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         
         // текущие координаты по центру отображаемой области
         let center = getCenterLocation(for: mapView)
         // объект для преобразования географических координат и названий
-        let geoCoder = CLGeocoder()
+        let geoсoder = CLGeocoder()
+        
+        if incomeSegueIdentifier == "showPlace" && previusLocation != nil {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.showUserLocation()
+            }
+        }
+        /* для освобождения ресурсов связанных с геокодированием делаем отмену отложенного запроса */
+        geoсoder.cancelGeocode()
         
         // Преобразуем координаты в адрес. completionHandler возвращает массив меток, которые соответствуют переданным координатам
-        geoCoder.reverseGeocodeLocation(center) { (placemarks, error) in
+        geoсoder.reverseGeocodeLocation(center) { (placemarks, error) in
             
             if let error = error {
                 print(error)
