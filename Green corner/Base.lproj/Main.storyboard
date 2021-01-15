@@ -41,7 +41,6 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="f0w-xe-4jU" firstAttribute="top" secondItem="abJ-ck-AfM" secondAttribute="top" id="MVR-W2-fMR"/>
                                                 <constraint firstItem="KCA-Gj-CBl" firstAttribute="trailing" secondItem="abJ-ck-AfM" secondAttribute="trailingMargin" id="V0E-D8-buH"/>

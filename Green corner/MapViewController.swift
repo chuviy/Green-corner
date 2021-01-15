@@ -28,9 +28,15 @@ class MapViewController: UIViewController {
     let annotationIdentifire = "annotationIdentifire"
     // отвечает за настройку и управление службами геолокации
     let locationManager = CLLocationManager()
-    let regionInMeters = 10_000.00
+    let regionInMeters = 1000.00
     var incomeSegueIdentifier = ""
     var placeCoordinate: CLLocationCoordinate2D? // координаты местоназначения точки
+    // предыдущее местоположение пользователя
+    var previusLocation: CLLocation? {
+        didSet {
+            startTrackingUserLocation()
+        }
+    }
     
     
     @IBOutlet var mapView: MKMapView!
@@ -183,6 +189,19 @@ class MapViewController: UIViewController {
                    mapView.setRegion(region, animated: true)
                }
     }
+    
+    private func startTrackingUserLocation() {
+        
+        guard let previusLocation = previusLocation else { return }
+        let center = getCenterLocation(for: mapView)
+        guard center.distance(from: previusLocation) > 50 else { return }
+        self.previusLocation = center
+        
+        /* Позиционируем карту в соответствии с текущем положением пользователя с задержкой в 3 сек*/
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.showUserLocation()
+        }
+    }
    
     private func getDirections() {
       
@@ -191,6 +210,12 @@ class MapViewController: UIViewController {
             showAlert(title: "Error", message: "Current location is not found")
             return
         }
+        
+        /* Елси текущее местоположение определено, включаем отслежевание текущего местоположение пользователя */
+        locationManager.stopUpdatingLocation()
+        
+        /* Передаем текущие координаты в св-во previosLocation */
+        previusLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
         
         guard let request = createDirectionsRequest(from: location) else {
             showAlert(title: "Error", message: "Destanation is not found")
