@@ -12,20 +12,20 @@ class NewPlaceViewController: UITableViewController {
     
     var currentPlace: Place!
     var imageIsChanged = false
-
+    
     @IBOutlet var saveButton: UIBarButtonItem!
     @IBOutlet var placeImage: UIImageView!
     @IBOutlet var placeName: UITextField!
     @IBOutlet var placeLocation: UITextField!
-    @IBOutlet var placeType: UITextField!
     @IBOutlet var ratingControl: RatingControl!
+    @IBOutlet var placeCoordinates: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        DispatchQueue.main.async {     // загрузка в фоновом режиме временных данных в БД
-//            self.newPlace.savePlaces()
-//        }
+        // загрузка в фоновом режиме временных данных в БД
+        //        DispatchQueue.main.async {
+        //            self.newPlace.savePlaces()
+        //        }
         
         // Убираем границу под рейтинговыми звездами
         tableView.tableFooterView = UIView(frame: CGRect(x: 0,
@@ -41,13 +41,13 @@ class NewPlaceViewController: UITableViewController {
     // скрываем клавиатуру (если tup в влюбом месте кроме textField) вызываем метод chooseImagePicker
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-           
+            
             let cameraIcon = #imageLiteral(resourceName: "camera")
             let photoIcon = #imageLiteral(resourceName: "photo")
             
             let actionSheet = UIAlertController(title: nil,
-                                               message: nil,
-                                               preferredStyle: .actionSheet)
+                                                message: nil,
+                                                preferredStyle: .actionSheet)
             
             let camera = UIAlertAction(title: "Camera", style: .default) { _ in
                 self.chooseImagePicker(source: .camera)
@@ -75,7 +75,6 @@ class NewPlaceViewController: UITableViewController {
     }
     
     // MARK: Navigation
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         /* Если получилось извлечь идентификатор segue и создать экземпляр класса MapVC */
@@ -85,25 +84,25 @@ class NewPlaceViewController: UITableViewController {
             else { return }
         
         /* Если получилось извлечь идентификатор segue и создать экземпляр класса MapVC,
-        то педедаем текщий segue identifier в созданный mapVC	 */
+         то педедаем текщий segue identifier в созданный mapVC	 */
         mapVC.incomeSegueIdentifier = identifier
-      
+        
         /* Назначаем за выполение методов протокола MapViewControllerDelegete сам класс NewPlaceViewController
-        т.е. Объявляем текущий класс делегатом. Необходимо подписать класс под протокол MapViewControllerDelegete */
+         т.е. Объявляем текущий класс делегатом. Необходимо подписать класс под протокол MapViewControllerDelegete */
         mapVC.mapViewControllerDelegate = self
         
         if identifier == "showPlace" {
             mapVC.place.name = placeName.text!
             mapVC.place.location = placeLocation.text
-            mapVC.place.type = placeType.text
+            mapVC.place.coordinates = placeCoordinates.text
             mapVC.place.imageData = placeImage.image?.pngData()
-           // print(mapVC.place.location)
+            
         }
         
     }
     
-    func savePlace() { // сохраняем данные о местах в БД
-                
+    func savePlace() { // обрабатываем данные о местах (с внесением в БД)
+        
         var image: UIImage?
         
         if imageIsChanged {
@@ -111,27 +110,27 @@ class NewPlaceViewController: UITableViewController {
         } else {
             image = #imageLiteral(resourceName: "LaunchScreen")
         }
-
+        
         let imageData = image?.pngData() // конвертируем UIImage to Data
         
-        // для сохранения новой записи в БД
+        // для сохранения записи в БД
         let newPlace = Place(name: placeName.text!,
                              location: placeLocation.text,
-                             type: placeType.text,
+                             coordinates: placeCoordinates.text,
                              imageData: imageData,
                              rating: Double(ratingControl.rating))
-        /* если режим редактирования то записываем данные из currentPlace, иначе записываем из Outlets*/
+        /* Если активен режим редактирования, то записываем данные из currentPlace, иначе записываем из Outlets (см. выше) */
         if currentPlace != nil {
             try! realm.write {
                 currentPlace?.name = newPlace.name
                 currentPlace?.location = newPlace.location
-                currentPlace?.type = newPlace.type
+                currentPlace?.coordinates = newPlace.coordinates
                 currentPlace?.imageData = newPlace.imageData
                 currentPlace?.rating = newPlace.rating
             }
-              } else {
-                StorageManager.saveObject(newPlace)
-            }
+        } else {
+            StorageManager.saveObject(newPlace) // сохраняем старую запись в БД
+        }
         
     }
     
@@ -148,7 +147,7 @@ class NewPlaceViewController: UITableViewController {
             placeImage.contentMode = .scaleAspectFill // масштабируем по размеру
             placeName.text = currentPlace?.name
             placeLocation.text = currentPlace?.location
-            placeType.text = currentPlace?.type
+            placeCoordinates.text = currentPlace?.coordinates
             ratingControl.rating = Int(currentPlace.rating)
         }
     }
@@ -170,29 +169,28 @@ class NewPlaceViewController: UITableViewController {
 }
 
 // MARK: Text field delegete
-    extension NewPlaceViewController: UITextFieldDelegate {
-        // скрываем клавиатуру по нажанию на Done
+extension NewPlaceViewController: UITextFieldDelegate {
+    // скрываем клавиатуру по нажанию на Done
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    @objc private func textFieldChanged() {
         
-        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            textField.resignFirstResponder()
-            return true
-        }
-        @objc private func textFieldChanged() {
-            
-            if placeName.text?.isEmpty == false {
-                saveButton.isEnabled = true
-            } else {
-                saveButton.isEnabled = false
-            }
+        if placeName.text?.isEmpty == false {
+            saveButton.isEnabled = true
+        } else {
+            saveButton.isEnabled = false
         }
     }
-     
+}
+
 // MARK: Work with image
 
 extension NewPlaceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func chooseImagePicker(source: UIImagePickerController.SourceType) { // выбираем источник изображения
         if UIImagePickerController.isSourceTypeAvailable(source) {
-           let imagePicker = UIImagePickerController() // создаем экземпляр класса UIImagePickerController
+            let imagePicker = UIImagePickerController() // создаем экземпляр класса UIImagePickerController
             imagePicker.delegate = self // делигируем экземпляру класса NewPlaceViewController управление imagePicker
             imagePicker.allowsEditing = true // позволит редактировать выбанное изображение
             imagePicker.sourceType = source // определяем источник изображения // imagePicker - это контроллер
@@ -213,16 +211,16 @@ extension NewPlaceViewController: UIImagePickerControllerDelegate, UINavigationC
     }
     
 }
-    
+
 /* Объявляя текущий класс делегатом в "func prepare(for segue:", необходимо подписать класс под протокол MapViewControllerDelegete */
 extension NewPlaceViewController: MapViewControllerDelegate  {
     
-    // Передаем значене address в поле location
-    
-    func getAddress(_ addres: String?) {
+    // Передаем значене address в поле location    
+    func getAddress(_ addres: String?, _ location: String?) {
         placeLocation.text = addres
+        placeCoordinates.text = location
     }
-   
+    
     
     
 }

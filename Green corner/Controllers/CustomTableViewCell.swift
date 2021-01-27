@@ -21,7 +21,7 @@ class CustomTableViewCell: UITableViewCell {
     }
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
-    @IBOutlet var typeLabel: UILabel!
+    @IBOutlet var coordinatesLabel: UILabel!
     @IBOutlet var cosmosView: CosmosView! {
         didSet {
             cosmosView.settings.updateOnTouch = false

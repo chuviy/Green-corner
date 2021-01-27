@@ -32,7 +32,7 @@
 		8D0C27AC2580AAB600042225 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		8D0C27AE2580B6D600042225 /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
 		8D0C27B02580E78900042225 /* NewPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlaceViewController.swift; sourceTree = "<group>"; };
-		8D421C2E257FB9430015E724 /* Зеленая точка.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Зеленая точка.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D421C2E257FB9430015E724 /* Green corner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Green corner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D421C31257FB9430015E724 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D421C33257FB9430015E724 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8D421C38257FB9430015E724 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		8D421C2F257FB9430015E724 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D421C2E257FB9430015E724 /* Зеленая точка.app */,
+				8D421C2E257FB9430015E724 /* Green corner.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,17 +88,16 @@
 		8D421C30257FB9430015E724 /* Green corner */ = {
 			isa = PBXGroup;
 			children = (
-				8D63E8F125B5AD4A00595428 /* ViewControllers */,
+				8D63E8F125B5AD4A00595428 /* Controllers */,
 				8D63E8F425B5ADFA00595428 /* Helpers */,
 				8D63E8F225B5AD9800595428 /* Models */,
 				8D63E8F525B5AE3300595428 /* Support files */,
-				8D421C37257FB9430015E724 /* Main.storyboard */,
-				8D421C3C257FB9450015E724 /* LaunchScreen.storyboard */,
+				8D916DBD25C044FB009F1328 /* View */,
 			);
 			path = "Green corner";
 			sourceTree = "<group>";
 		};
-		8D63E8F125B5AD4A00595428 /* ViewControllers */ = {
+		8D63E8F125B5AD4A00595428 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				8D5D3FE525997CF700800FEC /* MapViewController.swift */,
@@ -106,7 +105,7 @@
 				8D0C27AA257FE3A000042225 /* MainViewController.swift */,
 				8D0C27AC2580AAB600042225 /* CustomTableViewCell.swift */,
 			);
-			path = ViewControllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		8D63E8F225B5AD9800595428 /* Models */ = {
@@ -138,6 +137,15 @@
 			path = "Support files";
 			sourceTree = "<group>";
 		};
+		8D916DBD25C044FB009F1328 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8D421C37257FB9430015E724 /* Main.storyboard */,
+				8D421C3C257FB9450015E724 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		B8C15C07824D73E4B7F5F655 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,7 +174,7 @@
 			);
 			name = "Green corner";
 			productName = "Green corner";
-			productReference = 8D421C2E257FB9430015E724 /* Зеленая точка.app */;
+			productReference = 8D421C2E257FB9430015E724 /* Green corner.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -426,7 +434,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Aleksey-Antokhin.Green-corner";
-				PRODUCT_NAME = "Зеленая точка";
+				PRODUCT_NAME = "Green corner";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -446,7 +454,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Aleksey-Antokhin.Green-corner";
-				PRODUCT_NAME = "Зеленая точка";
+				PRODUCT_NAME = "Green corner";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -12,8 +12,12 @@ import RealmSwift
 
 class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-   private let searchController = UISearchController(searchResultsController: nil) // searchResultsController: nil - используем для результата тот же view
-   private var places:Results<Place>! /* type:Results - автообновляемый тип контейнера, который возвращает запрашиваемые объекты. Результаты отображают текущее состояние хранилища в текущем потоке в том числе и во время записи транзакции. Объект типа Results позволяет работать с данными в реальном времени. Results - аналог массива. */
+   /* searchResultsController: nil - используем для результата тот же view */
+   private let searchController = UISearchController(searchResultsController: nil)
+    
+   /* type:Results - автообновляемый тип контейнера, который возвращает запрашиваемые объекты. Результаты отображают текущее состояние хранилища в текущем потоке в том числе и во время записи транзакции. Объект типа Results позволяет работать с данными в реальном времени. Results - аналог массива. */
+   private var places:Results<Place>!
+    
    private var filteredPlaces: Results<Place>! // коллекция для помещения отфильтрованных записей
    private var ascendingSorting = true // для сортировки по возрастанию
    private var searchBarIsEmpty: Bool { // если строка поиска пустая возвращается true
@@ -31,8 +35,8 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        places = realm.objects(Place.self) // запрашиваем данные из БД. Инициализируем объект places. (Place.self) - self указывает имеенно на тип данных Place 
+        /* запрашиваем данные из БД. Инициализируем объект places. (Place.self) - self указывает имеенно на тип данных Place */
+        places = realm.objects(Place.self)
         
         // Setup the search controller
         searchController.searchResultsUpdater = self // получателем информации об изменении текста в поисковой строке будет класс MainViewController
@@ -54,21 +58,14 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
 
-      //  var place = Place()
-        
-//        if isFiltring {
-//            place = filteredPlaces[indexPath.row]
-//        } else {
-//            place = places[indexPath.row]
-//        }
         let place = isFiltring ? filteredPlaces[indexPath.row] : places[indexPath.row]
         
         cell.nameLabel?.text = place.name
         cell.locationLabel.text = place.location
-        cell.typeLabel.text = place.type
+        cell.coordinatesLabel.text = place.coordinates
         cell.imageOfPlace.image = UIImage(data: place.imageData!)
         cell.cosmosView.rating = place.rating
-//      cell.imageOfPlace?.layer.cornerRadius = cell.imageOfPlace.frame.height / 2  // 85/2 делаем круг из imageView. т.к. высота изображения =                                                                  // высоте строки, угол радиуса изображения = половине высоты                                                                  //  изображения (квадрата)
+//      cell.imageOfPlace?.layer.cornerRadius = cell.imageOfPlace.frame.height / 2  /* 85/2 делаем круг из imageView. т.к. высота изображения =       высоте строки, угол радиуса изображения = половине высоты //  изображения (квадрата) */
 //      cell.imageOfPlace?.clipsToBounds = true // обрезаем изображение по границам imageView.
 
           return cell
@@ -99,12 +96,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
             
            // достаем из БД объект по текущему(выделенному) индексу.
-//            let place: Place
-//            if isFiltring {
-//                place = filteredPlaces[indexPath.row]
-//            } else {
-//                place = places[indexPath.row]
-//            }
             let place = isFiltring ? filteredPlaces[indexPath.row] : places[indexPath.row]
             
             let newPlaceVC = segue.destination as! NewPlaceViewController

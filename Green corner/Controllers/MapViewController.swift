@@ -15,7 +15,7 @@ import CoreLocation
  Для передачи данных из MapViewController в NewPlaceViewController.
  */
 protocol MapViewControllerDelegate {
-    func getAddress(_ address: String?)
+    func getAddress(_ address: String?, _ location: String?)
 }
 
 class MapViewController: UIViewController {
@@ -46,11 +46,20 @@ class MapViewController: UIViewController {
     @IBOutlet var addressLabel: UILabel!
     @IBOutlet var doneButton: UIButton!
     @IBOutlet var goButton: UIButton!
+    @IBOutlet var locationLabel: UILabel!
+    @IBOutlet var distanceLabel: UILabel!
+    @IBOutlet var timeIntervalLabel: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
         addressLabel.text = ""
+        locationLabel.text = ""
+        
+        distanceLabel.text = ""
+        timeIntervalLabel.text = ""
+        
         mapView.delegate = self // назначаем делегатом сам класс
         setupMapView() // показываем точки на карте с проверкой по segue
     }
@@ -65,7 +74,8 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func doneButtonPressed() {
-        mapViewControllerDelegate?.getAddress(addressLabel.text!)
+        mapViewControllerDelegate?.getAddress(addressLabel.text!, locationLabel.text!)
+      //  mapViewControllerDelegate?.getAddress(locationLabel.text!)
         dismiss(animated: true)
     }
     /* Closure в методет возвращает текущие координаты пользователя, которые передаются в previusLocation */
@@ -88,17 +98,16 @@ class MapViewController: UIViewController {
             mapManager.setupPlaceMark(place: place, mapView: mapView)
             mapPinImage.isHidden = true
             addressLabel.isHidden = true
+            locationLabel.isHidden = true
             doneButton.isHidden = true
             goButton.isHidden = false
+            
+            distanceLabel.isHidden = true
+            timeIntervalLabel.isHidden = true
             
         }
         
     }
-   
-//    private func setupLocationManager() {
-//        locationManager.delegate = self
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//    }
     
 }
    
@@ -155,20 +164,30 @@ extension MapViewController: MKMapViewDelegate {
             guard let placemarks = placemarks else { return }
             
             let placemark = placemarks.first
-            let streetName = placemark?.thoroughfare // улица
-            let buildNumber = placemark?.subThoroughfare // номер дома
+           // let streetName = placemark?.thoroughfare // улица
+           // let buildNumber = placemark?.subThoroughfare // номер дома
+            let country = placemark?.country // Страна
+            let administrativeArea = placemark?.administrativeArea // Область
+            let locality = placemark?.locality // Населенный пункт
+           // let subAdministrativeArea = placemark?.subAdministrativeArea // Район
+            
+            let latitude = placemark?.location?.coordinate.latitude
+            let longitude = placemark?.location?.coordinate.longitude
+                        
             
             /* Обновлять интерфейс мы должны в основном потоке асинхронно */
             DispatchQueue.main.async {
                 
-                if streetName != nil && buildNumber != nil {
-                     self.addressLabel.text = "\(streetName!), \(buildNumber!)"
-                } else if streetName != nil {
-                    self.addressLabel.text = "\(streetName!)"
+                if country != nil && administrativeArea != nil && locality != nil {
+                    self.addressLabel.text = " \(country!), \(administrativeArea!), \(locality!)"
+                    self.locationLabel.text = "\(latitude!), \(longitude!)"
+                    //                } else if streetName != nil {
+                    //                    self.addressLabel.text = "\(streetName!)"
                 } else {
                     self.addressLabel.text = ""
+                    self.locationLabel.text = ""
                 }
-                 
+                
             }
             
             
