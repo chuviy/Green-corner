@@ -1,8 +1,8 @@
 # Green-corner - "Зеленый уголок".
 
-###### Version IOS: 13.3 
-###### Language: Swift 5
-###### Patern: MVC
+##### Version IOS: 13.3 
+##### Language: Swift 5
+##### Patern: MVC
 
 ## FrameWorks:
 1. Cosmos
