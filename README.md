@@ -29,7 +29,7 @@
 ![](https://github.com/chuviy/Green-corner/blob/main/Green%20corner/Support%20files/Assets.xcassets/3%20in%201_1.jpg?raw=true)
 
 
-  Приложение «Green corner» поможет Вам сохранить красивые и живописные места для отдыха на природе в виде фото с описанием и меткам геолокации, по которым Вы всегда сможете вернуться к любимому месту построив маршрут.  
+  Приложение «Green corner» поможет Вам сохранить красивые и живописные места для отдыха на природе в виде фото с описанием и меткам геолокации, по которым Вы всегда сможете вернуться к любимому месту, построив маршрут.  
   <br/>
   
 ![](https://github.com/chuviy/Green-corner/blob/main/Green%20corner/Support%20files/Assets.xcassets/3%20in%201_2.jpg?raw=true)
