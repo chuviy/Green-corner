@@ -1,12 +1,10 @@
-# Green-corner - "Зеленый уголок"
+# Green-corner - "Зеленый уголок".
 
-Приложение «Green corner» для мобильной операционной системы от Apple: IOS 9 и выше. 
+###### version IOS 13.3 
+###### Language - Swift 5
+###### Patern: MVC
 
-##       Language - Swift 5
- 
-##       Patern: MVC
-
-### FrameWorks:
+## FrameWorks:
 1. Cosmos
 2. RealmSwift
 3. MapKit
@@ -30,4 +28,8 @@
 
 Приложение «Green corner» поможет Вам сохранить в красивые и живописные места для отдыха на природе в виде фото с описанием и меткам геолокации, по которым Вы всегда сможете вернуться к любимому месту построив маршрут.
 
+
+
 ![](https://github.com/chuviy/Green-corner/blob/main/Green%20corner/Support%20files/Assets.xcassets/3%20in%201_2.jpg?raw=true)
+
+![](https://github.com/chuviy/Green-corner/blob/main/Green%20corner/Support%20files/Assets.xcassets/3%20in%201_3.jpg?raw=true)
